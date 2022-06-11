@@ -9,12 +9,10 @@ RUN go mod download
 FROM golang:rc-alpine as builder
 #COPY --from=modules /go/pkg /go/pkg
 COPY . /app
-
-WORKDIR /
-
+WORKDIR /app/cmd/hello
+RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 \
+    go build -o /bin/app -buildvcs=false
 RUN apk add --no-cache ca-certificates apache2-utils
 
-ADD bin /bin/
-
-CMD ["/bin/sh"]
-#ENTRYPOINT [ "bin/main" ]
+#CMD ["/bin/sh"]
+ENTRYPOINT [ "/bin/app" ]
