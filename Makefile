@@ -1,18 +1,7 @@
-all: test vet fmt lint build
+BINARY_NAME=./cmd/hello/hello.go
 
-test:
-	go test ./...
-
-vet:
-	go vet ./...
-
-fmt:
-	go list -f '{{.Dir}}' ./... | xargs -L1 gofmt -l
-	test -z $$(go list -f '{{.Dir}}' ./... | xargs -L1 gofmt -l)
-
-lint:
-	go list ./... | xargs -L1 golint -set_exit_status
+hello:
+	echo "Hello, world!"
 
 build:
-	go build -o bin/api ./cmd/api
-	go build -o bin/worker ./cmd/worker
+	go build -o bin/main $(BINARY_NAME)
