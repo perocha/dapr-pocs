@@ -1,7 +1,7 @@
 package main
 
 import (
-	github.com/perocha/dapr-pocs/internal/app
+	"github.com/perocha/dapr-pocs/internal/app"
 )
 
 // Main function
