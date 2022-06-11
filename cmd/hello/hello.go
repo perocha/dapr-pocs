@@ -1,11 +1,10 @@
 package main
 
 import (
-	"fmt"
-	"log"
+	github.com/perocha/dapr-pocs/internal/app
 )
 
+// Main function
 func main() {
-	fmt.Print("Hello, world.")
-	log.Print("Hello, world.")
+	app.Run()
 }
