@@ -1,11 +1,11 @@
-BINARY_NAME=hello.go
-FOLDER=./cmd/hello/
-
 hello:
 	echo "Hello, world!"
 
-build:
-	go build -o bin/main $(FOLDER)/$(BINARY_NAME)
+build-hello:
+	go build -o bin/main ./cmd/hello
 
-docker-build:
-	docker build --tag $(BINARY_NAME) .
+docker-build-hello:
+	docker build --tag hello --build-arg MODULE_NAME=hello  .
+
+docker-build-http-srv:
+	docker build --tag http-srv --build-arg MODULE_NAME=http-srv  .
