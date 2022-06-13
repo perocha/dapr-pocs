@@ -39,6 +39,6 @@ func Run() {
 	Log.Info("Listening on port", AppPort)
 	err := http.ListenAndServe("localhost"+AppPort, router)
 	if err != nil {
-		Log.Debug("Error starting server:", err)
+		Log.Fatal("Error starting server:", err)
 	}
 }

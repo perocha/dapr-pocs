@@ -11,6 +11,8 @@ type Interface interface {
 	Debug(args ...interface{})
 	// TO DO DebugWithFields(msg interface{}, f Fields)
 	Info(args ...interface{})
+	Fatal(args ...interface{})
+	Panic(args ...interface{})
 }
 
 // Logger is a wrapper around logrus.Logger
@@ -66,4 +68,14 @@ func (l *Logger) DebugWithFields(msg interface{}, f Fields) {
 // Info sends an unstructured informational log message.
 func (l *Logger) Info(args ...interface{}) {
 	l.logger.Info(args)
+}
+
+// Fatal sends an unstructured fatal log message.
+func (l *Logger) Fatal(args ...interface{}) {
+	l.logger.Fatal(args)
+}
+
+// Panic sends an unstructured panic log message.
+func (l *Logger) Panic(args ...interface{}) {
+	l.logger.Panic(args)
 }
