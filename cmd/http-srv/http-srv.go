@@ -1,14 +1,17 @@
 package main
 
 import (
-	"log"
 	"net/http"
 
 	"github.com/gorilla/mux"
 	"github.com/perocha/dapr-pocs/internal/httphandlers"
+	"github.com/perocha/dapr-pocs/internal/logger"
 )
 
 func main() {
+	l := logger.New("debug")
+
+	l.Debug("Starting server...")
 	router := mux.NewRouter()
 
 	router.HandleFunc("/", httphandlers.MainHandler)
@@ -18,6 +21,10 @@ func main() {
 	http.Handle("/", router)
 
 	AppPort := ":8080"
-	log.Printf("Listening on port %s", AppPort)
-	log.Fatal(http.ListenAndServe("localhost"+AppPort, router))
+	l.Debug("Listening on port", AppPort)
+	l.Info("Listening on port", AppPort)
+	err := http.ListenAndServe("localhost"+AppPort, router)
+	if err != nil {
+		l.Debug("Error starting server:", err)
+	}
 }

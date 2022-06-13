@@ -2,10 +2,10 @@ package httphandlers
 
 import (
 	"fmt"
-	"log"
 	"net/http"
 
 	"github.com/gorilla/mux"
+	log "github.com/sirupsen/logrus"
 )
 
 func MainHandler(w http.ResponseWriter, r *http.Request) {
@@ -16,6 +16,5 @@ func MainHandler(w http.ResponseWriter, r *http.Request) {
 func HelloHandler(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	name := vars["name"]
-	fmt.Fprintf(w, "Hello, %s.", name)
-	log.Printf("Hello, %s.", name)
+	log.Printf("HelloHandler", name)
 }
