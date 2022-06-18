@@ -8,7 +8,7 @@ on:
       [ master ]
     paths:
     - '**'
-    - '.github/workflows/serv-pub-autodeploy-trigger.yml'
+    - '.github/workflows/publish-container.yml'
 
   # Allow mannually trigger 
   workflow_dispatch:
