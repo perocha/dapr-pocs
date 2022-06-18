@@ -6,11 +6,10 @@ RUN go mod download
 
 # Step 2: Builder
 FROM golang:rc-alpine as builder
-ARG MODULE_NAME
 RUN apk add --no-cache ca-certificates apache2-utils
 COPY --from=modules /go/pkg /go/pkg
 COPY . /app
-WORKDIR /app/cmd/$MODULE_NAME
+WORKDIR /app/cmd/main
 RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 \
     go build -o /bin/app -buildvcs=false
 
