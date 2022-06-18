@@ -1,0 +1,49 @@
+name: Trigger auto deployment for http-srv
+
+# When this action will be executed
+on:
+  # Automatically trigger it when detected changes in repo
+  push:
+    branches:
+      [ master ]
+    paths:
+    - '**'
+    - '.github/workflows/serv-pub-autodeploy-trigger.yml'
+
+  # Allow mannually trigger 
+  workflow_dispatch:
+
+env:
+  # Environment variables
+  CONTAINER_REGISTRY_NAME: acr04d522.azurecr.io
+  APP_NAME: http-srv
+
+permissions:
+      id-token: write
+      contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout to the branch
+        uses: actions/checkout@v2
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+
+      - name: Log in to container registry
+        uses: docker/login-action@v1
+        with:
+          registry: ${{ env.CONTAINER_REGISTRY_NAME }}
+          username: ${{ secrets.CONTAINER_REGISTRY_USERNAME }}
+          password: ${{ secrets.CONTAINER_REGISTRY_PASSWORD }}
+
+      - name: Build and push container image to registry
+        uses: docker/build-push-action@v2
+        with:
+          push: true
+          tags: ${{ env.CONTAINER_REGISTRY_NAME }}/${{ env.APP_NAME }}:${{ github.sha }}
+          file: ./Dockerfile
+          context: ./
